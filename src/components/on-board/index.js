@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import CommonForm from "../common-form";
 import {
@@ -10,7 +10,13 @@ import {
   recruiterOnboardFormControls,
 } from "@/utils";
 import { useUser } from "@clerk/nextjs";
-// import { TabsContent } from "@radix-ui/react-tabs";
+import { createProfileAction } from "@/actions";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseClient = createClient(
+  "https://vhtmjisdzxnkubnsttsa.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZodG1qaXNkenhua3VibnN0dHNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjgwMzI5NjMsImV4cCI6MjA0MzYwODk2M30.CAqMIPwp1x-uiKiY1h4kohZrpji8aPz2SSfMlfRh3EE"
+);
 
 function OnBoard() {
   const [currentTab, setCurrentTab] = useState("candidate");
@@ -20,9 +26,35 @@ function OnBoard() {
   const [candidateFormData, setCandidateFormData] = useState(
     initialCandidateFormData
   );
+  const [file, setFile] = useState(null);
+
   const currentAuthUser = useUser();
-  const {user} = currentAuthUser;
-  console.log(currentAuthUser);
+  const { user } = currentAuthUser;
+
+  function handleFileChange(event) {
+    event.preventDefault();
+    setFile(event.target.files[0]);
+  }
+
+  async function handleUploadPdfToSupabase() {
+    const { data, error } = await supabaseClient.storage
+      .from("job-board-public")
+      .upload(`/public/${file.name}`, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+    console.log(data, error);
+    if (data) {
+      setCandidateFormData({
+        ...candidateFormData,
+        resume: data.path,
+      });
+    }
+  }
+
+  useEffect(() => {
+    if (file) handleUploadPdfToSupabase();
+  }, [file]);
 
   function handleTabChange(value) {
     setCurrentTab(value);
@@ -30,8 +62,8 @@ function OnBoard() {
 
   function handleCandidateFormValid() {
     return Object.keys(candidateFormData).every(
-      (key) => candidateFormData[key].trim() !== ''
-    )
+      (key) => candidateFormData[key].trim() !== ""
+    );
   }
 
   function handleRecruiterFormValid() {
@@ -43,23 +75,25 @@ function OnBoard() {
     );
   }
 
-  async function createProfileAction() {
-    const data = currentTab === 'candidate' ?
-    {
-      candidateInfo: candidateFormData,
-      role: 'candidate',
-      isPremiumUser: false,
-      userId: user?.id,
-      email: email?.primaryEmailAddress?.emailAddress,
-    } : {
-      recruiterInfo: recruiterFormData,
-      role: 'recruiter',
-      isPremiumUser: false,
-      userId: user?.id,
-      email: user?.primaryEmailAddress?.emailAddress
-    }
+  async function createProfile() {
+    const data =
+      currentTab === "candidate"
+        ? {
+            candidateInfo: candidateFormData,
+            role: "candidate",
+            isPremiumUser: false,
+            userId: user?.id,
+            email: user?.primaryEmailAddress?.emailAddress,
+          }
+        : {
+            recruiterInfo: recruiterFormData,
+            role: "recruiter",
+            isPremiumUser: false,
+            userId: user?.id,
+            email: user?.primaryEmailAddress?.emailAddress,
+          };
 
-    await createProfileAction(data, '/onboard');
+    await createProfileAction(data, "/onboard");
   }
 
   return (
@@ -78,11 +112,13 @@ function OnBoard() {
         </div>
         <TabsContent value="candidate">
           <CommonForm
+            action={createProfile}
             formControls={candidateOnboardFormControls}
             buttonText={"Onboard as candidate"}
             formData={candidateFormData}
             setFormData={setCandidateFormData}
             isBtnDisabled={!handleCandidateFormValid()}
+            handleFileChange={handleFileChange}
           />
         </TabsContent>
         <TabsContent value="recruiter">
@@ -92,7 +128,7 @@ function OnBoard() {
             formData={recruiterFormData}
             setFormData={setRecruiterFormData}
             isBtnDisabled={!handleRecruiterFormValid()}
-            // action={createProfileAction}
+            action={createProfile}
           />
         </TabsContent>
       </Tabs>

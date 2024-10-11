@@ -6,7 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { AlignJustify } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 
-function Header({user}) {
+function Header({user, profileInfo}) {
   
   const menuItems = [
     {
@@ -25,24 +25,29 @@ function Header({user}) {
       show: !user,
     },
     {
-      label: "Jobs",
-      path: "/jobs",
-      show: user,
-    },
-    {
       label: "Activity",
       path: "/activity",
-      show: user,
+      show: profileInfo?.role === 'candidate',
+    },
+    {
+      label: "Companies",
+      path: "/companies",
+      show: profileInfo?.role === "candidate",
+    },
+    {
+      label: "Jobs",
+      path: "/jobs",
+      show: profileInfo,
     },
     {
       label: "Membership",
       path: "/membership",
-      show: user,
+      show: profileInfo,
     },
     {
       label: "Account",
       path: "/account",
-      show: user,
+      show: profileInfo,
     },
   ];
 
