@@ -22,7 +22,7 @@ export async function fetchProfileAction(id) {
 }
 
 //create job action
-export async function createJobAction(formData, pathToRevalidate) {
+export async function postNewJobAction(formData, pathToRevalidate) {
   await connectToDB();
   await Job.create(formData);
   revalidatePath(pathToRevalidate);

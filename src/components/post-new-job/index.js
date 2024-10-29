@@ -5,30 +5,36 @@ import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import CommonForm from "../common-form";
 import { initialPostNewJobFormData, postNewJobFormControls } from "@/utils";
-import { createJobAction } from "@/actions";
+import { postNewJobAction } from "@/actions";
+
 
 function PostNewJob({ user, profileInfo, jobList }) {
   const [showJobDialog, setShowJobDialog] = useState(false);
   const [jobFormData, setJobFormData] = useState({
     ...initialPostNewJobFormData,
-    companyName: profileInfo?.recruiterInfo?.companyName
+    companyName: profileInfo?.recruiterInfo?.companyName,
   });
 
   function handlePostNewBtnValid() {
-    return Object.keys(jobFormData).every(control=> jobFormData[control].trim() !== '')
+    return Object.keys(jobFormData).every(
+      (control) => jobFormData[control].trim() !== ""
+    );
   }
 
   async function createNewJob() {
-    await createJobAction({
-      ...jobFormData,
-      recruiterId: user?.id,
-      applicants: []
-    }, '/jobs');
+    await postNewJobAction(
+      {
+        ...jobFormData,
+        recruiterId: user?.id,
+        applicants: [],
+      },
+      "/jobs"
+    );
 
     setJobFormData({
       ...initialPostNewJobFormData,
-      companyName: profileInfo?.recruiterInfo?.companyName
-    })
+      companyName: profileInfo?.recruiterInfo?.companyName,
+    });
     setShowJobDialog(false);
   }
 
@@ -40,13 +46,16 @@ function PostNewJob({ user, profileInfo, jobList }) {
       >
         Post A Job
       </Button>
-      <Dialog open={showJobDialog} onOpenChange={() => {
-        setShowJobDialog(false);
-        setJobFormData({
+      <Dialog
+        open={showJobDialog}
+        onOpenChange={() => {
+          setShowJobDialog(false);
+          setJobFormData({
             ...initialPostNewJobFormData,
-            companyName: profileInfo?.recruiterInfo?.companyName
-        })
-      }}>
+            companyName: profileInfo?.recruiterInfo?.companyName,
+          });
+        }}
+      >
         <DialogContent className="sm:max-w-screen-md h-[600px] overflow-auto">
           <DialogHeader>
             <DialogTitle>Post New Job</DialogTitle>
