@@ -2,6 +2,7 @@
 
 import connectToDB from "@/database";
 import Application from "@/models/application";
+import Feed from "@/models/feed";
 import Job from "@/models/job";
 import Profile from "@/models/profile";
 import { revalidatePath } from "next/cache";
@@ -193,4 +194,31 @@ export async function createStripePaymentAction(data) {
     success: true,
     id: session?.id,
   }
+}
+
+//create post action
+export async function createFeedPostAction(data, pathToRevalidate) {
+  await connectToDB();
+  await Feed.create(data);
+  revalidatePath(pathToRevalidate);
+}
+
+//fetch all posts action
+export async function fetchAllFeedPostAction() {
+  await connectToDB();
+  const result = await Feed.find({});
+  return JSON.parse(JSON.stringify(result));
+}
+
+//update post action
+export async function updateFeedPostAction(data, pathToRevalidate) {
+  await connectToDB();
+  const { userId, userName, message, image, likes, _id } = data;
+  await Feed.findOneAndUpdate(
+    { _id: _id },
+    { userId, userName, message, image, likes },
+    { new: true }
+  );
+
+  revalidatePath(pathToRevalidate);
 }

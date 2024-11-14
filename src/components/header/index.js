@@ -15,6 +15,11 @@ function Header({user, profileInfo}) {
       show: true,
     },
     {
+      label: "Feed",
+      path: "/feed",
+      show: profileInfo,
+    },
+    {
       label: "Login",
       path: "/sign-in",
       show: !user,
