@@ -70,13 +70,11 @@ function JobListing({
     ],
   }));
 
-  console.log(filterParams, "filterParams");
-
   return (
     <div>
       <div className="mx-auto max-x-7xl">
-        <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+        <div className="flex items-baseline dảk:border-white justify-between border-b border-gray-200 pb-6 pt-24">
+          <h1 className="dark:text-white text-4xl font-bold tracking-tight text-gray-900">
             {profileInfo?.role === "candidate"
               ? "Explore All Jobs"
               : "Jobs Dashboard"}
@@ -105,7 +103,7 @@ function JobListing({
                             } `}
                           />
 
-                          <Label className="ml-3 dark-text-white cursor-pointer text-sm text-gray-600">
+                          <Label className="ml-3 dark:text-white cursor-pointer text-sm text-gray-600">
                             {option}
                           </Label>
                         </MenubarItem>

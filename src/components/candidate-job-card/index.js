@@ -96,7 +96,7 @@ function CandidateJobCard({ jobItem, profileInfo, jobApplications }) {
               </div>
             </div>
           </DrawerHeader>
-          <DrawerDescription className="text-2xl dark:text-white  font-medium text-gray-600">
+          <DrawerDescription className="text-2xl dark:text-white font-medium text-gray-600">
             {jobItem?.description}
             <span className="text-xl dark:text-white ml-4 font-normal text-gray-500">
               {jobItem?.location}

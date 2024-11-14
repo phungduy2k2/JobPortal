@@ -32,7 +32,7 @@ function CommonForm({
                   [event.target.name]: event.target.value,
                 })
               }
-              className="w-full rounded-md h-[60px] px-4 border bg-gray-100 text-lg outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:drop-shadow-lg focus-visible:ouline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="dark:bg-black w-full rounded-md h-[60px] px-4 border bg-gray-100 text-lg outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:drop-shadow-lg focus-visible:ouline-none focus-visible:ring-0 focus-visible:ring-offset-0"
             />
           </div>
         );
@@ -71,7 +71,7 @@ function CommonForm({
                     [event.target.name]: event.target.value,
                   })
                 }
-                className="w-full rounded-md h-[60px] px-4 border bg-gray-100 text-lg outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:drop-shadow-lg focus-visible:ouline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="dark:bg-black w-full rounded-md h-[60px] px-4 border bg-gray-100 text-lg outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:drop-shadow-lg focus-visible:ouline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               />
             </div>
           );

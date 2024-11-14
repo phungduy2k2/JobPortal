@@ -137,7 +137,7 @@ function CandidateList({
           <div className="flex gap-3">
             <Button
               onClick={handlePreviewResume}
-              className=" flex h-11 items-center justify-center px-5"
+              className="flex h-11 items-center justify-center px-5"
             >
               Resume
             </Button>
