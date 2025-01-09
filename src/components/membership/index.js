@@ -36,15 +36,10 @@ function Membership({ profileInfo }) {
           },
         ],
       });
-
-      console.log(result, "result");
-
       await stripe.redirectToCheckout({
         sessionId: result?.id,
       });
     }
-
-    console.log(extractPriceId, "extractPriceId");
   }
 
   async function updateProfile() {
@@ -78,7 +73,6 @@ function Membership({ profileInfo }) {
     if (pathname.get("status") === "success") updateProfile();
   }, [pathname]);
 
-  console.log(new Date().getFullYear(), "year");
   console.log(profileInfo, "profileInfo");
 
   return (
@@ -109,7 +103,7 @@ function Membership({ profileInfo }) {
                     <div>
                       <JobIcon />
                     </div>
-                    <h1 className="font-bold text-2xl">{plan.heading}</h1>
+                    <h1 className="font-bold text-2xl dark:text-black">{plan.heading}</h1>
                   </div>
                 }
                 title={`$ ${plan.price} /yr`}

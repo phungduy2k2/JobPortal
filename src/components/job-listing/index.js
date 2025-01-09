@@ -113,9 +113,9 @@ function JobListing({
                 ))}
               </Menubar>
             ) : (
-              <PostNewJob 
+              <PostNewJob
                 user={user}
-                profileInfo={profileInfo} 
+                profileInfo={profileInfo}
                 jobList={jobList}
               />
             )}

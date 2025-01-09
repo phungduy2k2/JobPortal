@@ -101,7 +101,7 @@ function Feed({ user, profileInfo, allFeedPosts }) {
       <div className="mx-auto max-w-7xl">
         <div className="flex items-baseline dark:border-white justify-between border-b pb-6 pt-24">
           <h1 className="text-4xl dark:text-white font-bold tracking-tight text-gray-900">
-            Ecplore Feed
+            Explore Feed
           </h1>
           <div className="flex items-center">
             <Button
@@ -170,7 +170,7 @@ function Feed({ user, profileInfo, allFeedPosts }) {
           });
         }}
       >
-        <DialogContent className="h-[550px]">
+        <DialogContent className="min-h-[550px] h-auto">
           <Textarea
             name="message"
             value={formData?.message}

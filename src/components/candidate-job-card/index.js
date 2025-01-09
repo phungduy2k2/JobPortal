@@ -113,7 +113,7 @@ function CandidateJobCard({ jobItem, profileInfo, jobApplications }) {
           <div className="flex gap-4 mt-6">
             {jobItem?.skills.split(",").map((skill) => (
               <div className="w-[100px] flex justify-center items-center h-[35px] dark:bg-white bg-black rounded-[4px]">
-                <h2 className="text-[13px] font-medium text-white dark:text-black">
+                <h2 className="text-[13px] font-medium text-white text-center dark:text-black">
                   {skill}
                 </h2>
               </div>

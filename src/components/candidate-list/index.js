@@ -111,7 +111,7 @@ function CandidateList({
               {currentCandidateDetails?.candidateInfo?.currentJobLocation}
             </p>
             <p className="dark:text-white">
-              Total Experience:
+              Total Experience:{" "}
               {currentCandidateDetails?.candidateInfo?.totalExperience}
             </p>
             <p className="dark:text-white">
@@ -119,7 +119,7 @@ function CandidateList({
             </p>
             <p className="dark:text-white">
               Notice Period:{" "}
-              {currentCandidateDetails?.candidateInfo?.noticePeriod} Days
+              {currentCandidateDetails?.candidateInfo?.noticePeriod}
             </p>
             
             <div className="flex flex-wrap gap-4 mt-6">

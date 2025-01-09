@@ -43,7 +43,7 @@ export async function fetchJobsForRecruiterAction(id) {
 }
 //candidate
 export async function fetchJobsForCandidateAction(filterParams = {}) {
-  await connectToDB();
+  // await connectToDB();
   let updatedParams = {}
   Object.keys(filterParams).forEach((filterKey) => {
       updatedParams[filterKey] = { $in: filterParams[filterKey].split(",") }
@@ -164,8 +164,8 @@ export async function updateProfileAction(data, pathToRevalidate) {
 //crete stripe price id based on tier selection
 export async function createPriceIdAction(data) {
   const session = await stripe.prices.create({
-    currency: "inr",
-    unit_amount: data?.amount * 100,
+    currency: "usd",
+    unit_amount: data?.amount,
     recurring: {
       interval: "year",
     },
@@ -207,7 +207,7 @@ export async function createFeedPostAction(data, pathToRevalidate) {
 export async function fetchAllFeedPostAction() {
   await connectToDB();
   const result = await Feed.find({});
-  return JSON.parse(JSON.stringify(result));
+  return JSON.parse(JSON.stringify(result)).reverse();
 }
 
 //update post action
